@@ -19,7 +19,7 @@ one_step_circuit.cz(4,5)
 one_step_circuit.h([4,5])
 one_step_circuit.draw() 
 
-'''# Shift operator function for 4d-hypercube
+# Shift operator function for 4d-hypercube
 def shift_operator(circuit):
     for i in range(0,4):
         circuit.x(4)
@@ -30,4 +30,9 @@ def shift_operator(circuit):
 shift_operator(one_step_circuit)
 
 one_step_gate = one_step_circuit.to_instruction() 
-one_step_circuit.draw() '''
+one_step_circuit.draw()
+
+backend = Aer.get_backend('qasm_simulator') 
+job = execute( one_step_circuit, backend, shots=1024 ) 
+hist = job.result().get_counts() 
+plot_histogram( hist )
